@@ -2,6 +2,8 @@
 
 **SoundTrackDB** is a comprehensive dataset of treadmill running sounds, designed to support research and development in contactless running metric estimation.  
 
+![Dataset Overview](./images/DB.png)
+
 📊 **Highlights**:
 - **40 hours** of audio data  
 - **61 subjects**, **363 sessions**  
