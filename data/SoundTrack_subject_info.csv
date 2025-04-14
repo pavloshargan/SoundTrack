@@ -1,0 +1,62 @@
+subject,gender,race_experience,leading_foot,device_preference,daily_device,age,weight,height,running_times_per_week,running_hours_per_week,easy_pace
+P13,F,Yes,right,non-contact tools,No,25.0,48.0,160,1-2 times a week,1-2 hours,6.0
+P12,F,Yes,right,non-contact tools,No,28.0,53.0,168,1-2 times a week,2-3 hours,6.0
+P39,F,Yes,left,non-contact tools,Garmin,59.0,56.0,166,3-5 times a week,> 5 hours,7.0
+P26,F,Yes,left,non-contact tools,Apple,28.0,44.0,155,3-5 times a week,> 5 hours,6.5
+P60,F,No,right,wearable devices,No,23.0,45.0,164,< once a week,< 1 hour,5.0
+P11,F,No,right,non-contact tools,Garmin,33.0,48.0,155,< once a week,< 1 hour,
+P28,F,No,right,non-contact tools,No,28.0,50.0,158,1-2 times a week,3-4 hours,5.0
+P41,F,Yes,left,wearable devices,Coros,27.0,51.0,158,> 5 times a week,> 5 hours,6.5
+P14,F,No,left,non-contact tools,Garmin,30.0,51.0,160,3-5 times a week,> 5 hours,6.0
+P61,F,No,left,non-contact tools,Apple,24.0,52.0,163,1-2 times a week,< 1 hour,5.0
+P50,F,No,right,non-contact tools,Apple,27.0,53.0,166,< once a week,> 5 hours,4.0
+P06,F,No,left,no preference,Garmin,53.0,54.0,160,1-2 times a week,1-2 hours,8.0
+P40,F,No,right,non-contact tools,No,23.0,55.0,160,< once a week,< 1 hour,4.0
+P29,F,Yes,right,wearable devices,Apple,20.0,56.0,160,1-2 times a week,3-4 hours,6.0
+P23,M,Yes,left,wearable devices,Garmin,24.0,56.0,175,> 5 times a week,> 5 hours,9.0
+P43,F,No,left,no preference,No,51.0,57.0,160,< once a week,1-2 hours,
+P52,M,Yes,right,non-contact tools,Apple,32.0,58.0,171,1-2 times a week,3-4 hours,7.5
+P58,M,No,right,wearable devices,Coros,23.0,58.0,186,Everyday,> 5 hours,8.5
+P34,F,No,right,non-contact tools,Apple,21.0,59.8,162,1-2 times a week,2-3 hours,5.0
+P32,F,Yes,left,non-contact tools,Apple,26.0,60.0,172,3-5 times a week,> 5 hours,9.0
+P25,M,Yes,left,non-contact tools,Apple,34.0,60.5,181,> 5 times a week,> 5 hours,9.0
+P10,M,Yes,left,wearable devices,No,21.0,61.0,168,< once a week,1-2 hours,6.0
+P24,F,No,right,non-contact tools,Coros,33.0,62.0,165,< once a week,4-5 hours,5.0
+P35,M,No,left,non-contact tools,No,29.0,62.0,177,< once a week,< 1 hour,6.0
+P38,F,No,right,wearable devices,No,18.0,62.0,162,< once a week,< 1 hour,
+P18,F,Yes,right,no preference,Apple,40.0,65.0,170,1-2 times a week,2-3 hours,7.5
+P54,M,Yes,left,no preference,Coros,53.0,67.0,181,3-5 times a week,> 5 hours,6.5
+P31,M,No,left,wearable devices,Apple,28.0,67.0,176,1-2 times a week,2-3 hours,
+P42,M,No,left,no preference,No,28.0,67.0,174,< once a week,1-2 hours,5.0
+P05,M,Yes,right,wearable devices,No,19.0,68.0,183,< once a week,2-3 hours,
+P51,M,No,left,no preference,Apple,27.0,68.0,178,1-2 times a week,3-4 hours,4.5
+P16,M,No,left,no preference,No,19.0,69.0,175,< once a week,1-2 hours,
+P56,F,No,left,non-contact tools,Apple,23.0,70.0,163,1-2 times a week,1-2 hours,6.0
+P53,M,No,left,non-contact tools,No,18.0,70.0,181,< once a week,3-4 hours,7.0
+P03,M,Yes,left,non-contact tools,Apple,59.0,70.0,175,3-5 times a week,> 5 hours,6.5
+P27,M,No,left,non-contact tools,No,23.0,70.0,174,< once a week,< 1 hour,
+P57,M,No,right,no preference,Coros,29.0,70.0,172,1-2 times a week,3-4 hours,6.0
+P47,M,No,right,wearable devices,Apple,31.0,71.0,175,1-2 times a week,3-4 hours,5.5
+P48,M,No,left,non-contact tools,No,25.0,71.0,174,1-2 times a week,3-4 hours,5.5
+P09,M,Yes,right,wearable devices,Garmin,18.0,72.0,179,< once a week,3-4 hours,8.0
+P15,M,No,right,wearable devices,Apple,19.0,72.0,178,3-5 times a week,4-5 hours,
+P22,M,Yes,left,wearable devices,Garmin,31.0,72.0,178,1-2 times a week,2-3 hours,5.0
+P59,M,Yes,left,non-contact tools,Garmin,24.0,73.0,180,3-5 times a week,> 5 hours,6.0
+P01,M,Yes,left,non-contact tools,Apple,23.0,73.0,172,3-5 times a week,> 5 hours,6.5
+P30,M,Yes,right,no preference,Coros,23.0,74.0,193,> 5 times a week,> 5 hours,7.0
+P37,M,No,left,no preference,No,18.0,74.8,175,3-5 times a week,1-2 hours,3.0
+P45,F,No,right,non-contact tools,Apple,18.0,75.0,171,1-2 times a week,< 1 hour,5.0
+P49,M,Yes,left,non-contact tools,Apple,24.0,75.0,178,3-5 times a week,> 5 hours,5.0
+P36,M,No,left,no preference,Apple,23.0,75.0,181,< once a week,< 1 hour,5.0
+P44,M,No,left,wearable devices,Garmin,37.0,76.0,174,3-5 times a week,> 5 hours,7.0
+P55,M,No,left,non-contact tools,Apple,23.0,76.0,182,< once a week,1-2 hours,6.0
+P17,M,No,left,non-contact tools,Fitbit,30.0,76.0,170,1-2 times a week,2-3 hours,6.0
+P21,M,No,left,wearable devices,Apple,27.0,76.0,185,> 5 times a week,> 5 hours,6.5
+P19,M,No,right,non-contact tools,Apple,24.0,77.0,176,3-5 times a week,> 5 hours,8.0
+P20,M,No,left,wearable devices,No,24.0,78.0,181,< once a week,1-2 hours,8.0
+P46,M,Yes,left,no preference,Apple,26.0,79.0,187,1-2 times a week,4-5 hours,5.5
+P08,M,Yes,left,non-contact tools,Fitbit,27.0,79.3,188,1-2 times a week,3-4 hours,7.5
+P02,M,No,left,no preference,No,23.0,84.0,170,< once a week,3-4 hours,5.0
+P04,M,Yes,right,non-contact tools,No,20.0,84.0,188,Everyday,> 5 hours,7.0
+P33,M,No,left,non-contact tools,No,30.0,84.0,180,< once a week,> 5 hours,6.0
+P07,M,No,left,non-contact tools,No,31.0,86.0,183,< once a week,< 1 hour,3.5
