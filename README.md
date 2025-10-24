@@ -1,11 +1,15 @@
 #  SoundTrackDB implementation
-Train (takes about 15min on Mac M2 Air):
+Pre-trained weights included. The results are:<br>
+- Cadence MAE - 2.172 steps per minute<br>
+- Ground Contact Time MAE 25.6ms<br>
+
+<b>Train</b> (takes about 15min on Mac M2 Air):
 
 ```
 python3 train.py
 ```
 
-To run on a video with default checkpoint:
+<b>Run</b> on a video with default checkpoint:
 ```
 python3 demo.py /path/to/video.mp4
 ```
