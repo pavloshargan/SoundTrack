@@ -54,7 +54,7 @@ CACHE_DIR = os.path.join(OUT_DIR, "preprocessed_cache")
 
 EPOCHS = 40
 BATCH_SIZE = 128
-LR = 1e-7
+LR = 1e-3
 NUM_WORKERS = 4
 SEED = 1337
 
