@@ -9,7 +9,6 @@
 import os
 import glob
 import hashlib
-import json
 import warnings
 import random
 import subprocess
@@ -21,10 +20,7 @@ from typing import List
 import numpy as np
 import pandas as pd
 import librosa
-from scipy.signal import wiener
 from tqdm import tqdm
-import plotly.graph_objects as go  # kept if you want to extend dashboards later
-from plotly.offline import plot as plotly_plot  # same as above
 
 import torch
 import torch.nn.functional as F
@@ -35,8 +31,7 @@ from torch.utils.tensorboard import SummaryWriter
 # Import shared constants, feature maker, and model
 from model import (
     SR, WIN_SEC, HOP_SEC,
-    N_MFCC, N_FFT, HOP_LENGTH, T_TARGET, FEATURE_SHAPE,
-    ensure_finite, mvn, make_features, MTL_MLP
+    FEATURE_SHAPE, ensure_finite, make_features, MTL_MLP
 )
 
 # Silence decode warnings
@@ -49,7 +44,7 @@ DATA_DIR = "data"
 AUDIO_WAV_DIR = os.path.join(DATA_DIR, "audio_wav")
 AUDIO_M4A_DIR = os.path.join(DATA_DIR, "audio_m4a")
 GCT_DIR = os.path.join(DATA_DIR, "gct_csv")
-OUT_DIR = "runs/exp2"
+OUT_DIR = "runs/exp1"
 CACHE_DIR = os.path.join(OUT_DIR, "preprocessed_cache")
 
 EPOCHS = 40
