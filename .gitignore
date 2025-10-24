@@ -14,9 +14,6 @@ env/
 .DS_Store
 Thumbs.db
 
-# Model checkpoints and logs
-*.pt
-*.pth
 runs/
 logs/
 tensorboard/

@@ -5,7 +5,7 @@ Train (takes about 15min on Mac M2 Air):
 python3 train.py
 ```
 
-To run on a video with default checkpoints:
+To run on a video with default checkpoint:
 ```
 python3 demo.py /path/to/video.mp4
 ```
