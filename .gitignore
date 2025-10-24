@@ -21,9 +21,8 @@ tensorboard/
 # Data and generated artifacts
 data/
 preprocessed_cache/
-*.wav
+data/audio_wav
 *.m4a
-*.csv
 *.html
 *.json
 
