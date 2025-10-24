@@ -1,16 +1,8 @@
-# demo.py
-# 1) extract WAV from the given video with ffmpeg via subprocess
-# 2) run the model on sliding 3 s windows
-# 3) save Plotly HTML with cadence and GCT predictions
-# Notes
-# - uses hardcoded label stats from training: cadence mean=172.11 std=13.47, GCT mean=273.86 std=47.47
-# - applies simple 3-point smoothing to match validation
-# - adds light audio pre-processing to reduce domain shift
-
 import os
 import sys
 import subprocess
 import numpy as np
+import pandas as pd
 import librosa
 import torch
 from plotly.offline import plot as plotly_plot
@@ -77,18 +69,12 @@ def highpass_biquad(x, sr, fc=30.0, q=0.707):
     a1 /= a0
     a2 /= a0
     y = np.zeros_like(x, dtype=np.float32)
-    x1 = 0.0
-    x2 = 0.0
-    y1 = 0.0
-    y2 = 0.0
+    x1 = x2 = y1 = y2 = 0.0
     for i in range(len(x)):
         xi = float(x[i])
         yi = b0 * xi + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2
         y[i] = yi
-        x2 = x1
-        x1 = xi
-        y2 = y1
-        y1 = yi
+        x2, x1, y2, y1 = x1, xi, y1, yi
     return y
 
 
@@ -103,23 +89,104 @@ def roll3(x):
     return y
 
 
-def main():
-    if len(sys.argv) < 2:
-        print("Usage: python demo.py <video_path>")
-        sys.exit(1)
+def smooth_series(x, method="gaussian", win=7, sigma=1.5):
+    """
+    Simple 1D smoothing for small numeric arrays.
+    method: "mean" | "median" | "gaussian"
+    win: odd window length
+    sigma: std for gaussian in index units
+    """
+    import numpy as np
 
-    video_path = sys.argv[1]
-    if not os.path.exists(video_path):
-        print(f"Error: video not found: {video_path}")
+    if x is None or len(x) == 0:
+        return x
+    win = int(win)
+    if win < 3 or win % 2 == 0:
+        win = 3
+    n = len(x)
+    pad = win // 2
+
+    if method == "median":
+        xp = np.pad(x, (pad, pad), mode="reflect")
+        out = np.empty_like(xp, dtype=float)
+        for i in range(n):
+            out[i + pad] = np.median(xp[i:i + win])
+        return out[pad:pad + n].astype(x.dtype)
+
+    if method == "mean":
+        k = np.ones(win, dtype=float) / win
+        return np.convolve(x, k, mode="same").astype(x.dtype)
+
+    idx = np.arange(win) - pad
+    w = np.exp(-0.5 * (idx / float(sigma))**2)
+    w /= np.sum(w)
+    return np.convolve(x, w, mode="same").astype(x.dtype)
+
+
+def load_step_annotations(csv_path):
+    """
+    Returns sorted numpy array of step times in seconds if the file exists.
+    """
+    if not os.path.exists(csv_path):
+        return None
+    df = pd.read_csv(csv_path)
+
+    time_col = "video_time" if "video_time" in df.columns else ("time" if "time" in df.columns else None)
+    if time_col is None:
+        print(f"Warning: {csv_path} missing 'time' or 'video_time'. Skipping ground truth.")
+        return None
+    ts = np.asarray(df[time_col].values, dtype=float)
+    ts = ts[np.isfinite(ts)]
+    ts.sort()
+    return ts
+
+
+def cadence_from_events(event_times):
+    """
+    Instantaneous cadence from neighbor step differences.
+    For consecutive times t_i, t_{i+1}:
+      dt = t_{i+1} - t_i
+      cadence = round(60 / dt) steps per minute
+    Returns midpoints of intervals and the integer cadence values.
+    """
+    if event_times is None or len(event_times) < 2:
+        return None, None
+    diffs = np.diff(event_times)
+    mids = (event_times[:-1] + event_times[1:]) / 2.0
+    mask = diffs > 0
+    if not np.any(mask):
+        return None, None
+    diffs = diffs[mask]
+    mids = mids[mask]
+    cad = np.round(60.0 / diffs).astype(int)
+    return mids, cad
+
+
+def main():
+    # args: input media optional, annotation csv optional
+    default_media = "RunningExample.wav"
+    default_anno = "StepTimesAnnotation.csv"
+
+    input_path = sys.argv[1] if len(sys.argv) > 1 else default_media
+    anno_path = sys.argv[2] if len(sys.argv) > 2 else default_anno
+
+    if not os.path.exists(input_path):
+        print(f"Error: file not found: {input_path}")
         sys.exit(1)
 
     extracted_wav = "demo_audio.wav"
     checkpoint_path = "best_2.172_25.6.pt"
     plot_html = "demo_results.html"
 
-    print(f"Extracting audio from {video_path} ...")
-    ffmpeg_extract_audio(video_path, extracted_wav)
-    print(f"WAV saved to {extracted_wav}")
+    # audio source
+    ext = os.path.splitext(input_path)[1].lower()
+    if ext == ".wav":
+        print(f"Using provided WAV file: {input_path}")
+        extracted_wav = input_path
+    else:
+        print(f"Extracting audio from {input_path} ...")
+        ffmpeg_extract_audio(input_path, extracted_wav)
+        print(f"WAV saved to {extracted_wav}")
 
     print("Loading audio...")
     y, _ = librosa.load(extracted_wav, sr=mdl.SR, mono=True)
@@ -162,9 +229,21 @@ def main():
     win = int(mdl.WIN_SEC * mdl.SR)
     centers_sec = (np.arange(len(pc)) * hop + win // 2) / mdl.SR
 
+    # ground truth cadence from neighbor step differences
+    gt_times = load_step_annotations(anno_path) if os.path.exists(anno_path) else None
+    gt_centers, gt_cad = cadence_from_events(gt_times) if gt_times is not None else (None, None)
+    if gt_cad is None:
+        print(f"No usable ground truth found at {anno_path}. Plot will contain model predictions only.")
+        gt_cad_sm = None
+    else:
+        print(f"Loaded {len(gt_times)} step times from {anno_path}. Computed instantaneous GT cadence.")
+        gt_cad_sm = smooth_series(gt_cad, method="gaussian", win=7, sigma=1.5)
+
     print("Building Plotly figure...")
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=centers_sec, y=pc, mode="lines+markers", name="Model cadence spm"))
+    if gt_cad_sm is not None:
+        fig.add_trace(go.Scatter(x=gt_centers, y=gt_cad_sm, mode="lines", name="GT cadence smoothed", line=dict(dash="dot")))
     fig.add_trace(go.Scatter(x=centers_sec, y=pg, mode="lines+markers", name="Model GCT ms", yaxis="y2"))
 
     fig.update_layout(
