@@ -1,4 +1,19 @@
-# 🏃‍♂️ SoundTrackDB
+#  SoundTrackDB implementation
+Train (takes about 15min on Mac M2 Air):
+
+```
+python3 train.py
+```
+
+To run on a video with default checkpoints:
+```
+python3 demo.py /path/to/video.mp4
+```
+The result:
+![](./images/SoundTrackPlot.png)
+
+
+
 
 **SoundTrackDB** is a comprehensive dataset of treadmill running sounds, designed to support research and development in contactless running metric estimation.  
 

@@ -1,0 +1,42 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Model checkpoints and logs
+*.pt
+*.pth
+runs/
+logs/
+tensorboard/
+
+# Data and generated artifacts
+data/
+preprocessed_cache/
+*.wav
+*.m4a
+*.csv
+*.html
+*.json
+
+# Temporary / intermediate outputs
+*.tmp
+*.log
+
+# IDE settings
+.vscode/
+.idea/
+
+# Jupyter / IPython
+.ipynb_checkpoints/
