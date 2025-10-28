@@ -16,7 +16,7 @@ python3 train.py
 ```
 python3 demo.py /path/to/video.mp4
 ```
-The result:
+The result on test audio included in the repository (is not present in the dataset):
 ![](./images/SoundTrackPlot.png)
 
 
